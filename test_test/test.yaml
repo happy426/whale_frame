@@ -1,0 +1,20 @@
+-
+  name: 获取Access token
+  request:
+    method: get
+    url: https://api.weixin.qq.com/cgi-bin/token
+    data:
+      grant_type: client credential
+      appid: wx4d8f7de320aca501
+      secret: d096e22047235cad799d917a517c6246
+  validate: None
+-
+  name: 获取Access token
+  request:
+    method: get
+    url: https://api.weixin.qq.com/cgi-bin/token
+    data:
+      grant_type: client credential
+      appid: wx4d8f7de320aca501
+      secret: d096e22047235cad799d917a517c6246
+  validate: None

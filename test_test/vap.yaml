@@ -1,0 +1,64 @@
+-
+  name: 直播复盘列表页
+  request:
+    url: https://blankme.{env_util.env}.meetwhale.com/graphql
+    data: {
+            "operationName": "searchFormValue",
+            "variables": {
+                "form_slug": "vap_douyin_list",
+                "limit": 50,
+                "offset": 0,
+                "order_by": [],
+                "filter_entities": [
+                    {
+                        "filter_key": "status",
+                        "operation": 8,
+                        "filter_value": "[\"1\",\"4\"]"
+                    }
+                ],
+                "relation": 1
+            },
+            "query": "query searchFormValue($form_slug: String, $filters: JSON, $order_by: [OrderByEntity], $limit: Int, $offset: Int, $filter_entities: JSON, $relation: Int, $full_text_search_keyword: String) {\n  searchFormValue(form_slug: $form_slug, filters: $filters, order_by: $order_by, offset: $offset, limit: $limit, filter_entities: $filter_entities, relation: $relation, full_text_search_keyword: $full_text_search_keyword) {\n    items\n    total\n    limit\n    offset\n  }\n}\n"
+        }
+-
+  name: 商品复盘列表页
+  request:
+    url: graphql
+    data: {
+          "operationName": "searchFormValue",
+          "variables": {
+              "form_slug": "vap_topic_analysis_list",
+              "limit": 50,
+              "offset": 0,
+              "order_by": [
+                  {
+                      "order_key": "lives_count",
+                      "order_option": "DESC"
+                  }
+              ],
+              "filter_entities": [],
+              "relation": 1
+          },
+          "query": "query searchFormValue($form_slug: String, $filters: JSON, $order_by: [OrderByEntity], $limit: Int, $offset: Int, $filter_entities: JSON, $relation: Int, $full_text_search_keyword: String) {\n  searchFormValue(form_slug: $form_slug, filters: $filters, order_by: $order_by, offset: $offset, limit: $limit, filter_entities: $filter_entities, relation: $relation, full_text_search_keyword: $full_text_search_keyword) {\n    items\n    total\n    limit\n    offset\n  }\n}\n"
+      }
+-
+  name: 主播复盘列表页
+  request:
+    url: graphql
+    data: {
+            "operationName": "searchFormValue",
+            "variables": {
+                "form_slug": "vap_anchor_list",
+                "limit": 50,
+                "offset": 0,
+                "order_by": [
+                    {
+                        "order_key": "add_fans_club_rate",
+                        "order_option": "DESC"
+                    }
+                ],
+                "filter_entities": [],
+                "relation": 1
+            },
+            "query": "query searchFormValue($form_slug: String, $filters: JSON, $order_by: [OrderByEntity], $limit: Int, $offset: Int, $filter_entities: JSON, $relation: Int, $full_text_search_keyword: String) {\n  searchFormValue(form_slug: $form_slug, filters: $filters, order_by: $order_by, offset: $offset, limit: $limit, filter_entities: $filter_entities, relation: $relation, full_text_search_keyword: $full_text_search_keyword) {\n    items\n    total\n    limit\n    offset\n  }\n}\n"
+        }
