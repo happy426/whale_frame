@@ -73,7 +73,8 @@ class TestAliviaBlankMeShangPin:
         page.wait_for_timeout(3000)
         page.click(':nth-match([class="ant-table-row ant-table-row-level-0"], 2)')
         with context.expect_page() as new_page_info:
-            page.locator('//*[@id="rc-tabs-0-panel-BasicInfo"]/div/div[4]/div[2]/div[1]/div[1]').click()
+            page.click('//*[@id="rc-tabs-0-tab-products"]')
+            page.click('//*[@id="rc-tabs-0-panel-products"]/div/div/div[1]/div[1]')
         new_page = new_page_info.value
         page.wait_for_timeout(3000)
         assert f'https://blankme.{env_util.env}.meetwhale.com/vap/live-analysis-detail/' in new_page.url
@@ -203,7 +204,8 @@ class TestAliviaBlankMeZhuBo:
         page.wait_for_timeout(3000)
         page.locator("text=确定").click()
         with context.expect_page() as new_page_info:
-            page.locator('//*[@id="rc-tabs-0-panel-BasicInfo"]/div/div[3]/div/div/div[3]/div[1]/span[1]/div/span/span/img').click()
+            page.click('//*[@id="rc-tabs-0-tab-anchor"]')
+            page.click('//*[@id="rc-tabs-0-panel-anchor"]/div/div/div/div[3]/div[1]/span[1]/div/span/span/img')
         new_page = new_page_info.value
         time.sleep(3)
         assert f'https://blankme.{env_util.env}.meetwhale.com/vap/live-analysis-detail?anchorId=' in new_page.url
@@ -350,43 +352,43 @@ class TestAliviaBlankMeNeiRong:
         assert f"https://blankme.{env_util.env}.meetwhale.com/assets-new/video-cut?id=3785952904057024512" == page.url
         allure.attach(page.screenshot(), '视频裁切进入成功', allure.attachment_type.PNG)
 
-    @allure.title("商品话术跳转相关直播")
-    @allure.severity("critical")
-    def test_blankme_neirong08(self, browser: Browser, login_hyx):
-        context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
-        page = context.new_page()
-        page.goto(f"https://blankme.{env_util.env}.meetwhale.com/assets-new/detail/3785951872649171968")
-        page.locator("text=确定").click()
-        page.wait_for_timeout(5000)
-        assert f"https://blankme.{env_util.env}.meetwhale.com/assets-new/detail/3785951872649171968" == page.url
-        allure.attach(page.screenshot(), '商品话术进入成功', allure.attachment_type.PNG)
-        page.wait_for_timeout(5000)
-        page.click("[class= 'ql-vap-product ql-standardInject'] >> //div/div/div/div/div[2]/div/div[1]/div[2]/div[1]")
-        page.wait_for_timeout(5000)
-        with context.expect_page() as new_page_info:
-            page.locator('.RelatedLive_container__qtnLx >> //ul/li[1]').click()
-        new_page = new_page_info.value
-        page.wait_for_timeout(5000)
-        assert f"https://blankme.{env_util.env}.meetwhale.com/vap/live-detail/" in new_page.url
-        allure.attach(new_page.screenshot(), '跳转直播复盘成功', allure.attachment_type.PNG)
-
-    @allure.title("商品话术关键话术排行")
-    @allure.severity("critical")
-    def test_blankme_neirong09(self, browser: Browser, login_hyx):
-        context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
-        page = context.new_page()
-        page.goto(f"https://blankme.{env_util.env}.meetwhale.com/assets-new/detail/3785951872649171968")
-        page.locator("text=确定").click()
-        page.wait_for_timeout(5000)
-        page.click("[class= 'ql-vap-product ql-standardInject'] >> //div/div/div/div/div[2]/div/div[1]/div[2]/div[1]")
-        page.wait_for_timeout(5000)
-        page.locator('[class="ant-dropdown-trigger Topics_dropdownLink__2ckjA"]').hover()
-        page.wait_for_timeout(1000)
-        text = page.inner_text(
-            '[class="ant-dropdown-menu ant-dropdown-menu-root ant-dropdown-menu-vertical ant-dropdown-menu-light"]')
-        for i in ['成交金额', '商品千次曝光成交', '商品点击率', '曝光-成交转化率', '互动率', '加粉率', '加团率']:
-            assert i in text
-        allure.attach(page.screenshot(), '关键话术排行', allure.attachment_type.PNG)
+    # @allure.title("商品话术跳转相关直播")
+    # @allure.severity("critical")
+    # def test_blankme_neirong08(self, browser: Browser, login_hyx):
+    #     context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
+    #     page = context.new_page()
+    #     page.goto(f"https://blankme.{env_util.env}.meetwhale.com/assets-new/detail/3785951872649171968")
+    #     page.locator("text=确定").click()
+    #     page.wait_for_timeout(5000)
+    #     assert f"https://blankme.{env_util.env}.meetwhale.com/assets-new/detail/3785951872649171968" == page.url
+    #     allure.attach(page.screenshot(), '商品话术进入成功', allure.attachment_type.PNG)
+    #     page.wait_for_timeout(5000)
+    #     page.click("[class= 'ql-vap-product ql-standardInject'] >> //div/div/div/div/div[2]/div/div[1]/div[2]/div[1]")
+    #     page.wait_for_timeout(5000)
+    #     with context.expect_page() as new_page_info:
+    #         page.locator('.RelatedLive_container__qtnLx >> //ul/li[1]').click()
+    #     new_page = new_page_info.value
+    #     page.wait_for_timeout(5000)
+    #     assert f"https://blankme.{env_util.env}.meetwhale.com/vap/live-detail/" in new_page.url
+    #     allure.attach(new_page.screenshot(), '跳转直播复盘成功', allure.attachment_type.PNG)
+    #
+    # @allure.title("商品话术关键话术排行")
+    # @allure.severity("critical")
+    # def test_blankme_neirong09(self, browser: Browser, login_hyx):
+    #     context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
+    #     page = context.new_page()
+    #     page.goto(f"https://blankme.{env_util.env}.meetwhale.com/assets-new/detail/3785951872649171968")
+    #     page.locator("text=确定").click()
+    #     page.wait_for_timeout(5000)
+    #     page.click("[class= 'ql-vap-product ql-standardInject'] >> //div/div/div/div/div[2]/div/div[1]/div[2]/div[1]")
+    #     page.wait_for_timeout(5000)
+    #     page.locator('[class="ant-dropdown-trigger Topics_dropdownLink__2ckjA"]').hover()
+    #     page.wait_for_timeout(1000)
+    #     text = page.inner_text(
+    #         '[class="ant-dropdown-menu ant-dropdown-menu-root ant-dropdown-menu-vertical ant-dropdown-menu-light"]')
+    #     for i in ['成交金额', '商品千次曝光成交', '商品点击率', '曝光-成交转化率', '互动率', '加粉率', '加团率']:
+    #         assert i in text
+    #     allure.attach(page.screenshot(), '关键话术排行', allure.attachment_type.PNG)
 
     @allure.title("商品话术素材搜索")
     @allure.severity("critical")
@@ -408,24 +410,24 @@ class TestAliviaBlankMeNeiRong:
         assert goods == value and int(num[0]) > 0
         allure.attach(page.screenshot(), '素材搜索', allure.attachment_type.PNG)
 
-    @allure.title("商品话术竞对话术")
-    @allure.severity("critical")
-    def test_blankme_neirong11(self, browser: Browser, login_hyx):
-        context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
-        page = context.new_page()
-        page.goto(f"https://blankme.{env_util.env}.meetwhale.com/assets-new/detail/3785951872649171968")
-        page.locator("text=确定").click()
-        page.wait_for_timeout(5000)
-        page.click("[class= 'ql-vap-product ql-standardInject'] >> //div/div/div/div/div[2]/div/div[1]/div[2]/div[1]")
-        page.wait_for_timeout(5000)
-        page.locator(':nth-match(.whale-vap-writing-assistant-tab-label, 2)').click()
-        page.wait_for_timeout(3000)
-        page.fill('.whale-vap-compete-word >> //div[1]/div[1]/span/input', '防晒')
-        page.wait_for_timeout(3000)
-        res = page.inner_text('.whale-vap-compete-word-result-label')
-        num = re.findall(r'\d+', res)
-        assert int(num[0]) > 0
-        allure.attach(page.screenshot(), '竞对话术搜索结果', allure.attachment_type.PNG)
+    # @allure.title("商品话术竞对话术")
+    # @allure.severity("critical")
+    # def test_blankme_neirong11(self, browser: Browser, login_hyx):
+    #     context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
+    #     page = context.new_page()
+    #     page.goto(f"https://blankme.{env_util.env}.meetwhale.com/assets-new/detail/3785951872649171968")
+    #     page.locator("text=确定").click()
+    #     page.wait_for_timeout(5000)
+    #     page.click("[class= 'ql-vap-product ql-standardInject'] >> //div/div/div/div/div[2]/div/div[1]/div[2]/div[1]")
+    #     page.wait_for_timeout(5000)
+    #     page.locator(':nth-match(.whale-vap-writing-assistant-tab-label, 2)').click()
+    #     page.wait_for_timeout(3000)
+    #     page.fill('.whale-vap-compete-word >> //div[1]/div[1]/span/input', '防晒')
+    #     page.wait_for_timeout(3000)
+    #     res = page.inner_text('.whale-vap-compete-word-result-label')
+    #     num = re.findall(r'\d+', res)
+    #     assert int(num[0]) > 0
+    #     allure.attach(page.screenshot(), '竞对话术搜索结果', allure.attachment_type.PNG)
 
     @allure.title("与我共享进入直播复盘")
     @allure.severity("critical")

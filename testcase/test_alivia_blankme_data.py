@@ -295,25 +295,6 @@ class TestAliviaBlankMeDataTF:
             describe = str(res)
             feishu.send_post(title, env=env_util.env, bug='一般', describe=describe, path=page.screenshot())
 
-    @allure.title("直播场控数据")
-    def test_blankme_zbck01(self, browser: Browser):
-        context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
-        page = context.new_page()
-        page.goto(f"https://blankme.{env_util.env}.meetwhale.com/vap/live-list")
-        text = page.inner_text('.ant-table-tbody >> //tr[2]//td/div')
-        page.wait_for_timeout(1000)
-        page.click('.ant-table-tbody >> //tr[2]')
-        with context.expect_page() as new_page_info:
-            page.click("text='场控视角'")
-        new_page = new_page_info.value
-        new_page.wait_for_timeout(5000)
-        content = new_page.inner_html('text="实时直播内容" >> //../div[2]')
-        if "暂无直播内容</div>" in content:
-            feishu = SendMsg()
-            title = "直播场控数据问题"
-            describe = "直播场控暂无评论"
-            feishu.send_post(title, env=env_util.env, bug='一般', describe=describe, path=new_page.screenshot())
-
 
 
 

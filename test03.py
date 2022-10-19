@@ -1,4 +1,8 @@
-last = 4605
+old = ""
+new = ""
 
-cha = (0.3 * last/100)
-print(cha)
+if old != new:
+    print("不相等")
+else:
+    print("相等")
+
