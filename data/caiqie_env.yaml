@@ -1,0 +1,18 @@
+-
+ method: post
+ env: Dev
+ url: 'https://aml-api.develop.meetwhale.com/v2/videoTask'
+ company_id: 'c53ac779-662f-4e2b-a63d-5fd351f0ef51'
+ video_url: "https://whale-peach.oss-cn-zhangjiakou.aliyuncs.com/wos%2Fdefault%2Fv3GoCbpl-V3ajjOs8QKor%2F%E5%8F%91%E5%B8%83%E4%BC%9A%E5%AE%8C%E6%95%B4%E7%89%881080P.mp4"
+-
+ method: post
+ env: Stage
+ url: 'https://aml-api-public.stage.meetwhale.com/v2/videoTask'
+ company_id: 'c53ac779-662f-4e2b-a63d-5fd351f0ef51'
+ video_url: "https://whale-peach.oss-cn-zhangjiakou.aliyuncs.com/wos%2Fdefault%2Fv3GoCbpl-V3ajjOs8QKor%2F%E5%8F%91%E5%B8%83%E4%BC%9A%E5%AE%8C%E6%95%B4%E7%89%881080P.mp4"
+-
+ method: post
+ env: Prod
+ url: 'https://aml-api-public.meetwhale.com/v2/videoTask'
+ company_id: 'c53ac779-662f-4e2b-a63d-5fd351f0ef51'
+ video_url: "https://whale-peach.oss-cn-zhangjiakou.aliyuncs.com/wos%2Fdefault%2Fv3GoCbpl-V3ajjOs8QKor%2F%E5%8F%91%E5%B8%83%E4%BC%9A%E5%AE%8C%E6%95%B4%E7%89%881080P.mp4"

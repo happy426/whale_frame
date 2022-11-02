@@ -71,7 +71,7 @@ class TestAliviaBlankMeShangPin:
         page = context.new_page()
         page.goto(f"https://blankme.{env_util.env}.meetwhale.com/vap/entry")
         page.wait_for_timeout(3000)
-        page.click(':nth-match([class="ant-table-row ant-table-row-level-0"], 2)')
+        page.click(':nth-match([class="ant-table-row ant-table-row-level-0"], 6)')
         with context.expect_page() as new_page_info:
             page.click('//*[@id="rc-tabs-0-tab-products"]')
             page.click('//*[@id="rc-tabs-0-panel-products"]/div/div/div[1]/div[1]')
@@ -89,7 +89,7 @@ class TestAliviaBlankMeShangPin:
         page.goto(f"https://blankme.{env_util.env}.meetwhale.com/vap/entry")
         page.wait_for_timeout(3000)
         # 第二场直播间，第一场可能没有商品
-        page.click(':nth-match([class="ant-table-row ant-table-row-level-0"], 2)')
+        page.click(':nth-match([class="ant-table-row ant-table-row-level-0"], 6)')
         page.locator("text=直播评论").click()
         page.wait_for_timeout(5000)
         # 光标移动至滚动条所在框中
@@ -155,7 +155,7 @@ class TestAliviaBlankMeShangPin:
             page.click(':nth-match(.session--3-eeo, 2)')
         new_page = popup_info.value
         time.sleep(3)
-        assert f'https://blankme.{env_util.env}.meetwhale.com/vap/live-detail/' in new_page.url
+        assert f'https://blankme.{env_util.env}.meetwhale.com/vap/v1/live-detail/' in new_page.url
         allure.attach(page.screenshot(), '商品复盘进入成功', allure.attachment_type.PNG)
         allure.attach(new_page.screenshot(), '直播间进入成功', allure.attachment_type.PNG)
 
@@ -200,7 +200,7 @@ class TestAliviaBlankMeZhuBo:
     def test_blankme_zhubo_login02(self, browser: Browser, login_hyx):
         context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
         page = context.new_page()
-        page.goto(f"https://blankme.{env_util.env}.meetwhale.com/vap/live-detail/725")
+        page.goto(f"https://blankme.{env_util.env}.meetwhale.com/vap/v1/live-detail/725")
         page.wait_for_timeout(3000)
         page.locator("text=确定").click()
         with context.expect_page() as new_page_info:
@@ -245,7 +245,7 @@ class TestAliviaBlankMeZhuBo:
             page.click('.session--3-eeo')
         new_page = popup_info.value
         time.sleep(3)
-        assert f'https://blankme.{env_util.env}.meetwhale.com/vap/live-detail/' in new_page.url
+        assert f'https://blankme.{env_util.env}.meetwhale.com/vap/v1/live-detail/' in new_page.url
         allure.attach(page.screenshot(), '主播复盘进入成功', allure.attachment_type.PNG)
         allure.attach(new_page.screenshot(), '直播间进入成功', allure.attachment_type.PNG)
 
@@ -444,40 +444,40 @@ class TestAliviaBlankMeNeiRong:
         page.locator(':nth-match([class="ant-checkbox"], 2) >> //input/../../..').click(button="right")
         page.wait_for_timeout(3000)
         page.click("text='直播复盘' >> visible=true")
-        assert f'https://blankme.{env_util.env}.meetwhale.com/vap/live-detail/' in page.url
+        assert f'https://blankme.{env_util.env}.meetwhale.com/vap/v1/live-detail/' in page.url
         allure.attach(page.screenshot(), '跳转成功', allure.attachment_type.PNG)
 
 
-@allure.feature("直播场控模块")
-class TestAliviaBlankMeChangKong:
-
-    @allure.title("进入场控视角")
-    @allure.severity("critical")
-    def test_blankme_cksj01(self, browser: Browser, login_hyx):
-        context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
-        page = context.new_page()
-        page.goto(f"https://blankme.{env_util.env}.meetwhale.com/vap/live-list")
-        text = page.inner_text('.ant-table-tbody >> //tr[2]//td/div')
-        page.wait_for_timeout(5000)
-        page.click('.ant-table-tbody >> //tr[2]')
-        with context.expect_page() as new_page_info:
-            page.click("text='场控视角'")
-        new_page = new_page_info.value
-        assert f"https://blankme.{env_util.env}.meetwhale.com/vap/live-control-detail/{text}" in new_page.url
-        allure.attach(new_page.screenshot(), '场控视角进入成功', allure.attachment_type.PNG)
-
-    @allure.title("进入主播视角")
-    @allure.severity("critical")
-    def test_blankme_zbsj01(self, browser: Browser, login_hyx):
-        context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
-        page = context.new_page()
-        page.goto(f"https://blankme.{env_util.env}.meetwhale.com/vap/live-list")
-        page.wait_for_timeout(5000)
-        text = page.inner_text('.ant-table-tbody >> //tr[2]//td/div')
-        page.click('.ant-table-tbody >> //tr[2]')
-        with context.expect_page() as new_page_info:
-            page.click("text='主播视角'")
-        new_page = new_page_info.value
-        assert f"https://blankme.{env_util.env}.meetwhale.com/vap/live-control-detail/{text}/anchor" in new_page.url
-        allure.attach(new_page.screenshot(), '主播视角进入成功', allure.attachment_type.PNG)
+# @allure.feature("直播场控模块")
+# class TestAliviaBlankMeChangKong:
+#
+#     @allure.title("进入场控视角")
+#     @allure.severity("critical")
+#     def test_blankme_cksj01(self, browser: Browser, login_hyx):
+#         context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
+#         page = context.new_page()
+#         page.goto(f"https://blankme.{env_util.env}.meetwhale.com/vap/live-list")
+#         text = page.inner_text('.ant-table-tbody >> //tr[2]//td/div')
+#         page.wait_for_timeout(5000)
+#         page.click('.ant-table-tbody >> //tr[2]')
+#         with context.expect_page() as new_page_info:
+#             page.click("text='场控视角'")
+#         new_page = new_page_info.value
+#         assert f"https://blankme.{env_util.env}.meetwhale.com/vap/live-control-detail/{text}" in new_page.url
+#         allure.attach(new_page.screenshot(), '场控视角进入成功', allure.attachment_type.PNG)
+#
+#     @allure.title("进入主播视角")
+#     @allure.severity("critical")
+#     def test_blankme_zbsj01(self, browser: Browser, login_hyx):
+#         context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
+#         page = context.new_page()
+#         page.goto(f"https://blankme.{env_util.env}.meetwhale.com/vap/live-list")
+#         page.wait_for_timeout(5000)
+#         text = page.inner_text('.ant-table-tbody >> //tr[2]//td/div')
+#         page.click('.ant-table-tbody >> //tr[2]')
+#         with context.expect_page() as new_page_info:
+#             page.click("text='主播视角'")
+#         new_page = new_page_info.value
+#         assert f"https://blankme.{env_util.env}.meetwhale.com/vap/live-control-detail/{text}/anchor" in new_page.url
+#         allure.attach(new_page.screenshot(), '主播视角进入成功', allure.attachment_type.PNG)
 

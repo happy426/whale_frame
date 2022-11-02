@@ -1,2 +1,2 @@
-# env = "prod"
-env = "stage"
+env = "prod"
+# env = "stage"

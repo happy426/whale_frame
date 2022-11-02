@@ -55,7 +55,7 @@ class TestAliviaBlankMeData:
 
         # 根据vid进入直播间
         page.goto(f'https://blankme.{env_util.env}.meetwhale.com/vap/live-detail/{vid}')
-        page.wait_for_timeout(5000)
+        page.wait_for_timeout(10000)
         gmv_in = page.inner_text(':nth-match(.list--2x72Z, 1) >> //div[1]/span[2]').replace(',', '')[0:-1]
         gpm_in = page.inner_text(':nth-match(.list--2x72Z, 1) >> //div[2]/span[2]').replace(',', '')[0:-1]
         live_watch_ucount_in = page.inner_text(':nth-match(.list--2x72Z, 1) >> //div[3]/span[2]').replace(',', '')[0:-1]
@@ -123,7 +123,7 @@ class TestAliviaBlankMeData:
 
         # 根据vid进入直播间
         page.goto(f'https://blankme.{env_util.env}.meetwhale.com/vap/live-analysis-detail/{tid}')
-        page.wait_for_timeout(5000)
+        page.wait_for_timeout(10000)
         gmv_in = page.inner_text('.container--3jst- >> //div[1]/div[1]/div[2]/span').replace(',', '')
         gpm_in = page.inner_text('.container--3jst- >> //div[1]/div[2]/div/div[1]/div/div[2]/span').replace(',', '')
         watch_num_in = page.inner_text('.container--3jst- >> //div[1]/div[2]/div/div[2]/div/div[2]/span').replace(',',
@@ -204,7 +204,7 @@ class TestAliviaBlankMeData:
 
         # 根据vid进入直播间
         page.goto(f'https://blankme.{env_util.env}.meetwhale.com/vap/live-analysis-detail?anchorId={id}')
-        page.wait_for_timeout(5000)
+        page.wait_for_timeout(10000)
         gmv_in = page.inner_text('.container--3jst- >> //div[1]/div[1]/div[2]/span').replace(',', '')
         gpm_in = page.inner_text('.container--3jst- >> //div[1]/div[2]/div/div[1]/div/div[2]/span').replace(',', '')
         watch_num_in = page.inner_text('.container--3jst- >> //div[1]/div[2]/div/div[2]/div/div[2]/span').replace(',',
@@ -266,7 +266,7 @@ class TestAliviaBlankMeDataTF:
         response = page.request.post(url=f'https://blankme.{env_util.env}.meetwhale.com/graphql', data=data)
         list_data = response.json()['data']['searchFormValue']['items']
         page.goto(f'https://blankme.{env_util.env}.meetwhale.com/vap/entry')
-        page.wait_for_timeout(5000)
+        page.wait_for_timeout(10000)
         res = []
         for i in range(len(list_data)):
             res_data = list_data[i]
