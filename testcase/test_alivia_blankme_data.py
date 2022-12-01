@@ -10,74 +10,74 @@ from common import env_util
 @allure.feature("数据对比")
 class TestAliviaBlankMeData:
 
-    @allure.title("直播复盘列表页")
-    def test_blankme_shuju01(self, browser: Browser, login_hyx):
-        context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
-        page = context.new_page()
-        # 接口数据
-        data = {
-            "operationName": "searchFormValue",
-            "variables": {
-                "form_slug": "vap_douyin_list",
-                "limit": 50,
-                "offset": 0,
-                "order_by": [],
-                "filter_entities": [
-                    {
-                        "filter_key": "status",
-                        "operation": 8,
-                        "filter_value": "[\"1\",\"4\"]"
-                    }
-                ],
-                "relation": 1
-            },
-            "query": "query searchFormValue($form_slug: String, $filters: JSON, $order_by: [OrderByEntity], $limit: Int, $offset: Int, $filter_entities: JSON, $relation: Int, $full_text_search_keyword: String) {\n  searchFormValue(form_slug: $form_slug, filters: $filters, order_by: $order_by, offset: $offset, limit: $limit, filter_entities: $filter_entities, relation: $relation, full_text_search_keyword: $full_text_search_keyword) {\n    items\n    total\n    limit\n    offset\n  }\n}\n"
-        }
-        response = page.request.post(url=f'https://blankme.{env_util.env}.meetwhale.com/graphql', data=data)
-        # 当status=4时，分析完成
-        num = 0
-        for i in range(50):
-            if response.json()['data']['searchFormValue']['items'][i]['status'] == '4':
-                num = i
-                break
-        res_data = response.json()['data']['searchFormValue']['items'][num]
-        vid = res_data['vid']  # 直播间序号
-        gmv = res_data['gmv']  # 成交金额
-        gpm = res_data['gpm']
-        live_watch_ucount = res_data['live_watch_ucount']  # 总观看人数
-        click_rate = res_data['click_rate']  # 点击率
-        order_conversion_rate = res_data['order_conversion_rate']  # 成交转换率
-        interaction_rate = res_data['interaction_rate']  # 互动率
-        add_fans_rate = res_data['add_fans_rate']  # 加粉率
-        add_club_rate = res_data['add_club_rate']  # 加团率
-        list_num = [gmv, gpm, live_watch_ucount, click_rate, order_conversion_rate, interaction_rate, add_fans_rate,
-                    add_club_rate]
-
-        # 根据vid进入直播间
-        page.goto(f'https://blankme.{env_util.env}.meetwhale.com/vap/live-detail/{vid}')
-        page.wait_for_timeout(10000)
-        gmv_in = page.inner_text(':nth-match(.list--2x72Z, 1) >> //div[1]/span[2]').replace(',', '')[0:-1]
-        gpm_in = page.inner_text(':nth-match(.list--2x72Z, 1) >> //div[2]/span[2]').replace(',', '')[0:-1]
-        live_watch_ucount_in = page.inner_text(':nth-match(.list--2x72Z, 1) >> //div[3]/span[2]').replace(',', '')[0:-1]
-        click_rate_in = page.inner_text(':nth-match(.list--2x72Z, 1) >> //div[4]/span[2]').replace(',', '')[0:-1]
-        order_conversion_rate_in = page.inner_text(':nth-match(.list--2x72Z, 1) >> //div[5]/span[2]').replace(',', '')[
-                                   0:-1]
-        interaction_rate_in = page.inner_text(':nth-match(.list--2x72Z, 2) >> //div[1]/span[2]').replace(',', '')[0:-1]
-        add_fans_rate_in = page.inner_text(':nth-match(.list--2x72Z, 2) >> //div[2]/span[2]').replace(',', '')[0:-1]
-        add_club_rate_in = page.inner_text(':nth-match(.list--2x72Z, 3) >> //div[1]/span[2]').replace(',', '')[0:-1]
-
-        index = ['gmv', 'gpm', 'live_watch_ucount', 'click_rate', 'order_conversion_rate', 'interaction_rate', 'add_fans_rate',
-                    'add_club_rate']
-        list_num_in = [gmv_in, gpm_in, live_watch_ucount_in, click_rate_in,
-                       order_conversion_rate_in, interaction_rate_in, add_fans_rate_in, add_club_rate_in]
-
-        # 预警——创建飞书消息对象
-        feishu = SendMsg()
-        for i in range(8):
-            if float(list_num_in[i]) != float(list_num[i]):
-                title = "直播复盘列表页与场内数据不同"
-                describe = index[i] + ':场次内' + list_num_in[i] + '不等于场次外' + list_num[i]
-                feishu.send_post(title, env=env_util.env, bug='一般', describe=describe, path=page.screenshot())
+    # @allure.title("直播复盘列表页")
+    # def test_blankme_shuju01(self, browser: Browser, login_hyx):
+    #     context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
+    #     page = context.new_page()
+    #     # 接口数据
+    #     data = {
+    #         "operationName": "searchFormValue",
+    #         "variables": {
+    #             "form_slug": "vap_douyin_list",
+    #             "limit": 50,
+    #             "offset": 0,
+    #             "order_by": [],
+    #             "filter_entities": [
+    #                 {
+    #                     "filter_key": "status",
+    #                     "operation": 8,
+    #                     "filter_value": "[\"1\",\"4\"]"
+    #                 }
+    #             ],
+    #             "relation": 1
+    #         },
+    #         "query": "query searchFormValue($form_slug: String, $filters: JSON, $order_by: [OrderByEntity], $limit: Int, $offset: Int, $filter_entities: JSON, $relation: Int, $full_text_search_keyword: String) {\n  searchFormValue(form_slug: $form_slug, filters: $filters, order_by: $order_by, offset: $offset, limit: $limit, filter_entities: $filter_entities, relation: $relation, full_text_search_keyword: $full_text_search_keyword) {\n    items\n    total\n    limit\n    offset\n  }\n}\n"
+    #     }
+    #     response = page.request.post(url=f'https://blankme.{env_util.env}.meetwhale.com/graphql', data=data)
+    #     # 当status=4时，分析完成
+    #     num = 0
+    #     for i in range(50):
+    #         if response.json()['data']['searchFormValue']['items'][i]['status'] == '4':
+    #             num = i
+    #             break
+    #     res_data = response.json()['data']['searchFormValue']['items'][num]
+    #     vid = res_data['vid']  # 直播间序号
+    #     gmv = res_data['gmv']  # 成交金额
+    #     gpm = res_data['gpm']
+    #     live_watch_ucount = res_data['live_watch_ucount']  # 总观看人数
+    #     click_rate = res_data['click_rate']  # 点击率
+    #     order_conversion_rate = res_data['order_conversion_rate']  # 成交转换率
+    #     interaction_rate = res_data['interaction_rate']  # 互动率
+    #     add_fans_rate = res_data['add_fans_rate']  # 加粉率
+    #     add_club_rate = res_data['add_club_rate']  # 加团率
+    #     list_num = [gmv, gpm, live_watch_ucount, click_rate, order_conversion_rate, interaction_rate, add_fans_rate,
+    #                 add_club_rate]
+    #
+    #     # 根据vid进入直播间
+    #     page.goto(f'https://blankme.{env_util.env}.meetwhale.com/vap/live-detail/{vid}')
+    #     page.wait_for_timeout(10000)
+    #     gmv_in = page.inner_text(':nth-match(.list--2x72Z, 1) >> //div[1]/span[2]').replace(',', '')[0:-1]
+    #     gpm_in = page.inner_text(':nth-match(.list--2x72Z, 1) >> //div[2]/span[2]').replace(',', '')[0:-1]
+    #     live_watch_ucount_in = page.inner_text(':nth-match(.list--2x72Z, 1) >> //div[3]/span[2]').replace(',', '')[0:-1]
+    #     click_rate_in = page.inner_text(':nth-match(.list--2x72Z, 1) >> //div[4]/span[2]').replace(',', '')[0:-1]
+    #     order_conversion_rate_in = page.inner_text(':nth-match(.list--2x72Z, 1) >> //div[5]/span[2]').replace(',', '')[
+    #                                0:-1]
+    #     interaction_rate_in = page.inner_text(':nth-match(.list--2x72Z, 2) >> //div[1]/span[2]').replace(',', '')[0:-1]
+    #     add_fans_rate_in = page.inner_text(':nth-match(.list--2x72Z, 2) >> //div[2]/span[2]').replace(',', '')[0:-1]
+    #     add_club_rate_in = page.inner_text(':nth-match(.list--2x72Z, 3) >> //div[1]/span[2]').replace(',', '')[0:-1]
+    #
+    #     index = ['gmv', 'gpm', 'live_watch_ucount', 'click_rate', 'order_conversion_rate', 'interaction_rate', 'add_fans_rate',
+    #                 'add_club_rate']
+    #     list_num_in = [gmv_in, gpm_in, live_watch_ucount_in, click_rate_in,
+    #                    order_conversion_rate_in, interaction_rate_in, add_fans_rate_in, add_club_rate_in]
+    #
+    #     # 预警——创建飞书消息对象
+    #     feishu = SendMsg()
+    #     for i in range(8):
+    #         if float(list_num_in[i]) != float(list_num[i]):
+    #             title = "直播复盘列表页与场内数据不同"
+    #             describe = index[i] + ':场次内' + list_num_in[i] + '不等于场次外' + list_num[i]
+    #             feishu.send_post(title, env=env_util.env, bug='一般', describe=describe, path=page.screenshot())
 
     @allure.title("商品复盘列表页")
     def test_blankme_shuju02(self, browser: Browser, login_hyx):

@@ -9,13 +9,9 @@ with sync_playwright() as p:
     context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
     page = context.new_page()
 
-    page.goto(f"https://blankme.{env_util.env}.meetwhale.com/vap/live-detail/725")
+    page.goto(f"https://blankme.{env_util.env}.meetwhale.com/vap/anchor-list")
     page.wait_for_timeout(3000)
-    page.locator("text=确定").click()
-    with context.expect_page() as new_page_info:
-        page.click('//*[@id="rc-tabs-0-tab-anchor"]')
-        page.click('//*[@id="rc-tabs-0-panel-anchor"]/div/div/div/div[3]/div[1]/span[1]/div/span/span/img')
-    new_page = new_page_info.value
+    page.click('//*[@id="root-content"]/div/div/div/div[4]/div/div/div/div/div/div/div/table/tbody/tr[2]')
     time.sleep(3)
 
     time.sleep(3)
