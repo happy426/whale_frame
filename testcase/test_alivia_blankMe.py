@@ -7,11 +7,10 @@ from common.robot_image import SendMsg
 from common import env_util
 
 
-"""
 @allure.feature("直播复盘模块")
 class TestAliviaBlankMeZhiBo:
 
-    @allure.title("直播复盘列表页")
+    @allure.title("直播复盘概览页")
     @allure.severity("critical")
     def test_blankme_zhibo_login01(self, browser: Browser, login_hyx):
         context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
@@ -21,29 +20,11 @@ class TestAliviaBlankMeZhiBo:
         page.goto("https://blankme.stage.meetwhale.com/vap/entry")
         page.wait_for_timeout(5000)
         if "https://blankme.stage.meetwhale.com/vap/entry" != page.url:
-            title = "直播复盘列表页进入失败"
+            title = "直播复盘概览页进入失败"
             feishu.send_post(title, env='stage', bug='致命', path=page.screenshot())
             pytest.fail()
         assert "https://blankme.stage.meetwhale.com/vap/entry" == page.url
         allure.attach(page.screenshot(), '登录成功', allure.attachment_type.PNG)
-
-    @allure.title("直播复盘进入直播间")
-    @allure.severity("critical")
-    def test_blankme_zhibo_login02(self, browser: Browser):
-        context = browser.new_context(storage_state="./data/blankMe_cookie_hyx.json")
-        page = context.new_page()
-        page.goto("https://blankme.stage.meetwhale.com/vap/entry")
-        page.locator("text=738").click()
-        page.wait_for_timeout(5000)
-        # 创建飞书消息对象
-        feishu = SendMsg()
-        if "https://blankme.stage.meetwhale.com/vap/live-detail/738" != page.url:
-            title = "直播复盘列表页进入失败"
-            feishu.send_post(title, env='stage', bug='致命', path=page.screenshot())
-            pytest.fail()
-        assert "https://blankme.stage.meetwhale.com/vap/live-detail/738" == page.url
-        allure.attach(page.screenshot(), '进入成功', allure.attachment_type.PNG)
-"""
 
 
 @allure.feature("商品复盘模块")
